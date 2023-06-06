@@ -80,8 +80,6 @@ jobs:
           uses: docker/build-push-action@v4
           id: build_and_push
           with:
-            #context: .
-            #file: Dockerfile
             push: true
             tags: {{ '${{' }} steps.meta.outputs.tags {{ '}}' }}
             labels: {{ '${{' }} steps.meta.outputs.labels {{ '}}' }}
