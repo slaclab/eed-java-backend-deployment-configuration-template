@@ -10,7 +10,7 @@ jobs:
     prepare:
         runs-on: ubuntu-latest
         env:
-            DEPLOY_IMAGE: {{ '${{' }} inputs.deployment_image {{ '$}}' }}
+            DEPLOY_IMAGE: {{ '${{' }} inputs.deployment_image {{ '}}' }}
         steps:
             - run: |
                 echo "Configure deploy with image $DEPLOY_IMAGE"

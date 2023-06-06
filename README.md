@@ -1,2 +1,7 @@
-# eed-java-backend-deployment-configuration-template
-template for the creation of a project for manage the deployment configuration for eed-java-backend app type
+# eed-java-backend-template
+Template for java backend deployment configuration to use with argocd
+
+
+## quick start
+pip install copier
+copier https://github.com/slaclab/eed-java-backend-deployment-configuration-template.git test-java-deployment-config
