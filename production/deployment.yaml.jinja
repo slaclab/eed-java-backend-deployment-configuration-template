@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ project_name }}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: {{ project_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ project_name }}
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io.scheme: 'http'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '8080'
+    spec:
+      containers:
+      - name: {{ project_name }}
+        imagePullPolicy: Always
+        image: __image_name__
+        envFrom:
+        - configMapRef:
+            name: env-config-map
+        resources:
+          limits:
+            memory: 512Mi
+            cpu: "250m"
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: gh-secret
