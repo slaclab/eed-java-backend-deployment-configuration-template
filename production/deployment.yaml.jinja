@@ -1,12 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k2eg
-  annotations:
-    prometheus.io/scrape: 'true'
-    prometheus.io/path: '/metrics'
-    prometheus.io/port: '8080'
+  name: {{ project_name }}
 spec:
+  replicas: 2
   selector:
     matchLabels:
       app: {{ project_name }}
@@ -14,6 +11,11 @@ spec:
     metadata:
       labels:
         app: {{ project_name }}
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io.scheme: 'http'
+        prometheus.io/path: '/actuator/prometheus'
+        prometheus.io/port: '8080'
     spec:
       containers:
       - name: {{ project_name }}

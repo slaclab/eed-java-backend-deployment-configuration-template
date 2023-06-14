@@ -17,6 +17,13 @@ github_owner:
         {% if not (github_owner | regex_search('^[a-z][a-z0-9\-]+$')) %}
         github_owner must start with a letter, followed one or more letters, digits or dashes all lowercase.
         {% endif %}
+application_http_prefix:
+        type: str
+        help: the prefix to use on for http endpoint (https://hostname/prefix/)?
+        validator: >-
+            {% if not (github_owner | regex_search('^[a-z][a-z0-9\-]+$')) %}
+            github_owner must start with a letter, followed one or more letters, digits or dashes all lowercase.
+            {% endif %}
 project_slug:
     type: str
     help: A slug of the project name

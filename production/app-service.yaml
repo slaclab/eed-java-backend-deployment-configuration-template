@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: eed-java-backend-example-service
+spec:
+  selector:
+    app: eed-java-backend-example
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8080
