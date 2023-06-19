@@ -7,16 +7,16 @@ on:
                 required: true
                 type: string
 concurrency:
-    group: ${{ github.workflow }}
+    group: {{ '${{' }} github.workflow {{ '}}' }}
     cancel-in-progress: true
 env:
-    DEPLOY_IMAGE: ${{ inputs.deployment_image }}
+    DEPLOY_IMAGE: {{ '${{' }} inputs.deployment_image {{ '}}' }}
 jobs:
     update-test-deployment:
         runs-on: ubuntu-latest
         environment: test
         outputs:
-            commit_hash: ${{ steps.commit-and-push.outputs.commit_long_sha }}
+            commit_hash: {{ '${{' }} steps.commit-and-push.outputs.commit_long_sha {{ '}}' }}
         steps:
             - name: Checkout source code
               uses: actions/checkout@v3
