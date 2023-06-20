@@ -25,12 +25,23 @@ jobs:
           env:
             CI: true
           with:
-            gradle-version: 7.6
             arguments: assemble
+        - name: Check for docker-compose.yml file
+          uses: andstor/file-existence-action@v2
+          id: check_files
+          with:
+            files: "docker-compose.yml"
+        - name: Launch test backend
+          if: steps.check_files.outputs.files_exists == 'true'
+          run: |
+            docker compose -f docker-compose.yml up -d
         - name: Test Project
           uses: gradle/gradle-build-action@v2
           env:
             CI: true
           with:
-            gradle-version: 7.6
             arguments: test
+        - name: Shoutdown test backend
+          if: steps.check_files.outputs.files_exists == 'true'
+          run: |
+            docker compose -f docker-compose.yml down -v

@@ -43,12 +43,25 @@ jobs:
             CI: true
           with:
             arguments: assemble
+        - name: Check for docker-compose.yml file
+          uses: andstor/file-existence-action@v2
+          id: check_files
+          with:
+            files: "docker-compose.yml"
+        - name: Launch test backend
+          if: steps.check_files.outputs.files_exists == 'true'
+          run: |
+            docker compose -f docker-compose.yml up -d
         - name: Test Project
           uses: gradle/gradle-build-action@v2
           env:
             CI: true
           with:
             arguments: test
+        - name: Shoutdown test backend
+          if: steps.check_files.outputs.files_exists == 'true'
+          run: |
+            docker compose -f docker-compose.yml down -v
         - name: Uplaod artifact
           uses: actions/upload-artifact@v3
           with:
